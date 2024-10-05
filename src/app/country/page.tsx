@@ -1,11 +1,16 @@
-// /app/country/[name]/page.tsx
+// app/country/[capital]/page.tsx
 import countries from '@/app/countries';
 
-export default function CountryDetails({ params }: { params: { name: string } }) {
-  const country = countries[params.name.toLowerCase()];
+export default function CapitalDetails({ params }: { params: { capital: string } }) {
+  // Ensure params.captial is defined
+  if (!params?.capital) {
+    return <h2>Capital not provided!</h2>;
+  }
+
+  const country = Object.values(countries).find(c => c.capital.toLowerCase() === params.capital.toLowerCase());
 
   if (!country) {
-    return <h2>Country not found!</h2>;
+    return <h2>Country not found for this capital!</h2>;
   }
 
   return (
